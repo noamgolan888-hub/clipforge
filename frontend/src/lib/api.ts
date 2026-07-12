@@ -5,7 +5,17 @@ import type {
   Job,
 } from "./types";
 
-const BASE = "/api";
+// In dev, Vite's proxy forwards /api and /media to localhost:8000, so an
+// empty base works. In production, the frontend and backend are deployed
+// separately, so this must point at the deployed backend's URL.
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
+
+const BASE = `${API_BASE_URL}/api`;
+
+export function resolveMediaUrl(url: string): string {
+  if (/^https?:\/\//.test(url)) return url;
+  return `${API_BASE_URL}${url}`;
+}
 
 async function postJson<T>(path: string, body: unknown): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {

@@ -1,5 +1,6 @@
 import { Download } from "lucide-react";
 import { cn, formatTime } from "@/lib/utils";
+import { resolveMediaUrl } from "@/lib/api";
 import type { ResultClip } from "@/lib/types";
 
 interface VideoPlayerProps {
@@ -15,11 +16,12 @@ const aspectClass: Record<string, string> = {
 };
 
 export function VideoPlayer({ clip, aspect = "9:16", index }: VideoPlayerProps) {
+  const src = resolveMediaUrl(clip.url);
   return (
     <div className="group overflow-hidden rounded-xl border border-border bg-bg-elevated transition-colors hover:border-text-tertiary/40">
       <div className={cn("relative w-full bg-black", aspectClass[aspect])}>
         <video
-          src={clip.url}
+          src={src}
           controls
           preload="metadata"
           className="h-full w-full object-cover"
@@ -39,7 +41,7 @@ export function VideoPlayer({ clip, aspect = "9:16", index }: VideoPlayerProps) 
           </p>
         </div>
         <a
-          href={clip.url}
+          href={src}
           download
           className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border text-text-secondary transition-colors hover:border-accent/50 hover:text-accent"
         >
