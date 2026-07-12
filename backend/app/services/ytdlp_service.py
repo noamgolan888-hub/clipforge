@@ -16,6 +16,15 @@ _COMMON_OPTS = {
     "nocheckcertificate": True,
 }
 
+# Cloud hosts (Render, Railway, etc.) run on datacenter IPs that YouTube
+# aggressively flags as bot traffic. A cookies file from a real logged-in
+# session works around that. Never commit this file — it's supplied only
+# via a private Secret File on the host (Render mounts these under
+# /etc/secrets/), never through the repo.
+_COOKIES_FILE = os.environ.get("YTDLP_COOKIES_FILE", "/etc/secrets/cookies.txt")
+if os.path.exists(_COOKIES_FILE):
+    _COMMON_OPTS["cookiefile"] = _COOKIES_FILE
+
 _MAX_RETRIES = 3
 
 
