@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-Process*)",
+      "PowerShell(Start-Sleep*)",
+      "PowerShell(Set-Location*)",
+      "mcp__Claude_Browser__read_page",
+      "mcp__Claude_Browser__get_page_text",
+      "mcp__Claude_Browser__read_network_requests",
+      "mcp__Claude_Browser__read_console_messages"
+    ]
+  }
+}
